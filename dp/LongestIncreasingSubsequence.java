@@ -1,0 +1,24 @@
+package dp;
+
+/**
+ * LeetCode #300 - Longest Increasing Subsequence
+ * Time: O(n log n) with patience sorting / binary search
+ */
+public class LongestIncreasingSubsequence {
+    public int lengthOfLIS(int[] nums) {
+        int[] tails = new int[nums.length];
+        int size = 0;
+
+        for (int num : nums) {
+            int lo = 0, hi = size;
+            while (lo < hi) {
+                int mid = (lo + hi) / 2;
+                if (tails[mid] < num) lo = mid + 1;
+                else hi = mid;
+            }
+            tails[lo] = num;
+            if (lo == size) size++;
+        }
+        return size;
+    }
+}
